@@ -117,6 +117,7 @@ if (!localStorage.getItem("user")) {
 }
 
 var answer;
+var hover = {"plus":false};
 
 var cssDefaults = {
 	"textTop":12,
@@ -483,20 +484,27 @@ function tutorial() {
 	context.globalAlpha = 0.9;
 	context.font = "20pt Calibri";
 	context.fillStyle = "black";
-	context.fillText("Tutorial",20,40+20);
-	context.fillText("Tutorial",20,40+20);
+	context.fillText("Tutorial",20,40+10);
+	context.fillText("Tutorial",20,40+10);
 	
 	context.font = "12pt Calibri";
-	context.fillText("Enter a yes/no question in the box (don't",20,70+20);
-	context.fillText("forget the '?'). The stars will align to",20,90+20);
-	context.fillText("form the answer!",20,110+20);
-	context.fillText("Cheat Mode:",20,150+20);
-	context.fillText("Cheat Mode:",20,150+20);
+	context.fillText("Enter a yes/no question in the box (don't",20,70+10);
+	context.fillText("forget the '?'). The stars will align to",20,90+10);
+	context.fillText("form the answer!",20,110+10);
+	context.fillText("Cheat Mode:",20,150+10);
+	context.fillText("Cheat Mode:",20,150+10);
 	
-	context.fillText("When cheat mode is active, entering a '/'",20,175+20);
-	context.fillText("instead of a '?' at the end of your question",20,195+20);
-	context.fillText("will force the answer to be YES. Using a",20,215+20);
-	context.fillText("regular question mark forces it to NO.",20,235+20);
+	context.fillText("When cheat mode is active, entering a '/'",20,175+10);
+	context.fillText("instead of a '?' at the end of your question",20,195+10);
+	context.fillText("will force the answer to be YES. Using a",20,215+10);
+	context.fillText("regular question mark forces it to NO.",20,235+10);
+	
+	context.font = "underline 20pt Calibri";
+	context.fillStyle = "darkblue";
+	if (hover["plus"]) {
+		context.fillStyle = "#4286f4";
+	}
+	context.fillText("Contact + More Games",20,235+60);
 	
 	var img=document.getElementById("cross");
 	context.drawImage(img,300-18,10,16,16);
@@ -556,6 +564,10 @@ $(canvas)
 		} else {
 			menu = false;
 		}
+		
+		if (hover["plus"] && tutorialEnabled) {
+			window.open("moregames/moreGames.html");
+		}
 	})
 	
 	.bind('touchend mouseup',function(e){
@@ -571,6 +583,12 @@ $(canvas)
 			mouseX = parseInt(e.touches[0].pageX);
 			mouseY = parseInt(e.touches[0].pageY);
 		}		
+		
+		if (mouseCollide(0,225+60,500,100)) {
+			hover["plus"] = true;
+		} else {
+			hover["plus"] = false;
+		}
 	});
 	
 	$('body').on('contextmenu', '#myCanvas', function(e){ return false; });
