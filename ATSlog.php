@@ -10,12 +10,13 @@ $infoName = 'info';
 $rateName = 'rate';
 $uuidName = 'id';
 $dateTimeName = 'datetime';
+$questionName = 'q';
 
 //Get/Check UUID
-if (!isset($_GET[$uuidName])) {
+if (!isset($_POST[$uuidName])) {
 	die();
 } else {
-	$uuid = $_GET[$uuidName];
+	$uuid = $_POST[$uuidName];
 	if (!ctype_digit($uuid)) {
 		die();
 	}
@@ -27,27 +28,30 @@ if (!isset($_GET[$uuidName])) {
 	}
 	
 	$appendText = "-";
-	if (isset($_GET[$yesNoName])) {
-		if ($_GET[$yesNoName] == "yes") {
+	if (isset($_POST[$yesNoName])) {
+		if ($_POST[$yesNoName] == "yes") {
 			$appendText = $appendText . "yes-";
 		} else {
 			$appendText = $appendText . "no-";
 		}
 	}
-	if (isset($_GET[$cheatName])) {
+	if (isset($_POST[$cheatName])) {
 		$appendText = $appendText . "cheat-";
 	}
-	if (isset($_GET[$infoName])) {
+	if (isset($_POST[$infoName])) {
 		$appendText = $appendText . "info-";
 	}
-	if (isset($_GET[$rateName])) {
+	if (isset($_POST[$rateName])) {
 		$appendText = $appendText . "rate-";
+	}
+	if (isset($_POST[$questionName])) {
+		$appendText = $appendText . stripslashes(htmlspecialchars($_POST[$questionName])) . "-";
 	}
 	
 	date_default_timezone_set('<ENTER TIMEZONE HERE>');
 	$current_date = date('d/m/Y == H:i:s');
 	
-	$dateTime = $_GET[$dateTimeName];
+	$dateTime = $_POST[$dateTimeName];
 	
 	$logHandle = fopen($logFileName, "a"); 
 	fwrite($logHandle,"\r\n".$uuid.'@'.$dateTime.'#'.$current_date.$appendText.','); 

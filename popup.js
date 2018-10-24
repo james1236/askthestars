@@ -537,8 +537,8 @@ $(canvas)
 		if (menu) {
 			if (mouseCollide(308-32+getMouseDistanceFromCenter()[0]/70+7-10-8,312-32-128+getMouseDistanceFromCenter()[1]/70-3+23-8,32,32)) {
 				window.open("https://chrome.google.com/webstore/detail/ask-the-stars-popup-game/ojpecghgbnnnglccbiplbnhohcojblgf");
-				return;
 				postLog("rate");
+				return;
 			}
 			if (mouseCollide(308-32+getMouseDistanceFromCenter()[0]/70-50+40,312-64+getMouseDistanceFromCenter()[1]/70+2,32,19)) {
 				cheat = !cheat;
@@ -547,8 +547,8 @@ $(canvas)
 			if (mouseCollide(308-32+getMouseDistanceFromCenter()[0]/70+7-10-8,312-32-128+getMouseDistanceFromCenter()[1]/70-3+60-8,32,32)) {
 				tutorialEnabled = true;
 				menu = false;
-				return;
 				postLog("info");
+				return;
 			}
 		}
 		if (mouseCollide(308-32+getMouseDistanceFromCenter()[0]/70,312-32+getMouseDistanceFromCenter()[1]/70,24) && !menu) {
@@ -612,7 +612,7 @@ setInterval(function(){
 function postLog(name) {
 	postText = "";
 	if (cheat) {
-		postText+="&cheat";
+		postText+="&cheat=1";
 	}
 	if (answer == 1) {
 		postText+="&yn=yes";
@@ -620,13 +620,13 @@ function postLog(name) {
 		postText+="&yn=no";
 	}
 	if (name == "info") {
-		postText+="&info";
+		postText+="&info=1";
 	}
 	if (name == "rate") {
-		postText+="&rate";
+		postText+="&rate=1";
 	}	
 	if (name == "open") {
-		postText+="&open";
+		postText+="&open=1";
 	}	
 	
 	dNow = new Date();
@@ -635,7 +635,7 @@ function postLog(name) {
 	xhttp.open("POST", "http://james1236.000webhostapp.com/ATSlog.php", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("datetime="+escape(dNow.getDate() + '/' + dNow.getMonth() + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes())+
-		"&id="+localStorage.getItem("id")+postText
+		"&id="+localStorage.getItem("id")+"&q="+document.getElementById("textInput").value+postText
 	)
 }
 

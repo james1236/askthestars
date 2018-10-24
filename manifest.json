@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Ask The Stars (Popup Game)",
 	"short_name": "Ask The Stars",
-	"version": "1.1",
+	"version": "1.12",
 
 	"description": "8 ball question and answer game. Has a cheat mode to prank your friends!",
 	"icons": {
