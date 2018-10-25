@@ -26,6 +26,9 @@ var menu = false;
 var cheat = false;
 var tutorialEnabled = false;
 
+var specificText = "";
+var specCreateTimer = -1;
+
 var globalTimer = 0;
 
 if (localStorage.getItem("id") == undefined) {
@@ -517,6 +520,7 @@ function reload() {
 	updatePoints();
 	grid();
 	tutorial();
+	displaySpecificText();
 	
 	globalTimer++;
 }
@@ -627,6 +631,21 @@ setInterval(function(){
 	}
 },1);
 
+function displaySpecificText() {
+	if (specificText) {
+		context.font = "12pt Monospace";
+		context.fillStyle = "#fff";
+		if (globalTimer - specCreateTimer > 100) {
+			context.globalAlpha = 0.4;
+		} else {
+			context.globalAlpha = (globalTimer - specCreateTimer)/300;
+		}
+		
+		context.fillText("\u2605> "+specificText,20+getMouseDistanceFromCenter()[0]/100,312-22+getMouseDistanceFromCenter()[1]/100);
+		context.globalAlpha = 1;
+	}
+}
+
 function postLog(name) {
 	postText = "";
 	if (cheat) {
@@ -655,6 +674,16 @@ function postLog(name) {
 	xhttp.send("datetime="+escape(dNow.getDate() + '/' + dNow.getMonth() + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes())+
 		"&id="+localStorage.getItem("id")+"&q="+document.getElementById("textInput").value+postText
 	)
+
+	//Load leaderboard data
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			if (this.responseText[0] == "*") {
+				specificText = this.responseText.substr(1);
+				specCreateTimer = globalTimer;
+			}
+		}
+	}
 }
 
 setTimeout(function(){postLog("open");},3000);
