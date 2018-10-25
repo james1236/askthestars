@@ -11,6 +11,7 @@ $rateName = 'rate';
 $uuidName = 'id';
 $dateTimeName = 'datetime';
 $questionName = 'q';
+$openName = 'open';
 
 //Get/Check UUID
 if (!isset($_POST[$uuidName])) {
@@ -43,6 +44,9 @@ if (!isset($_POST[$uuidName])) {
 	}
 	if (isset($_POST[$rateName])) {
 		$appendText = $appendText . "rate-";
+	}
+	if (isset($_POST[$openName])) {
+		$appendText = $appendText . "open-";
 	}
 	if (isset($_POST[$questionName])) {
 		$appendText = $appendText . stripslashes(htmlspecialchars($_POST[$questionName])) . "-";
