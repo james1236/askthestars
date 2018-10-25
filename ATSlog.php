@@ -59,8 +59,15 @@ if (!isset($_POST[$uuidName])) {
 	
 	$logHandle = fopen($logFileName, "a"); 
 	fwrite($logHandle,"\r\n".$uuid.'@'.$dateTime.'#'.$current_date.$appendText.','); 
-	fclose ($logHandle); 
+	userSpecificMessages($uuid);
 	die();
+}
+
+function userSpecificMessages($testUuid) {
+	if ((int)$testUuid == "0635878096") {
+		//max 1234567890123456789012345
+		die("*usm example");
+	}
 }
 
 ?>
